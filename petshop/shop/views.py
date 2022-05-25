@@ -13,7 +13,7 @@ def index(request):
     classifications = Classification.objects.all()
     context = {
     'animals': animals,
-    'title': 'Список животных',
+    'title': 'Зоомагазин',
     'classifications': classifications,
     }
     return render(request, 'shop/index.html', context)
@@ -24,6 +24,7 @@ def get_classification(request, classification_id):
     #classification = Classification.objects.get(pk=classification_id)
     context = {
     'animals': animals,
+    'title': 'Категории',
     'classifications': classifications,
     #'classification': classification,
     }

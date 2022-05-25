@@ -1,3 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+<div class="col-md-8">
+  {% for animal in animals %}
+  <div class="card mb-3">
+      <div class="card-header">
+          Классификация: {{ animal.classification }}
+      </div>
+      <div class="card-body">
+          <div class="media">
+              {% if animal.photo %}
+                  <img src="{{ animal.photo.url }}" arl="" width="350" class="mr-3">    
+              {% endif %}
+
+              <div class="media-body">
+                  <h5 class="card-title">{{ animal.title }}</h5>
+                  <p class="card-text">{{ animal.description|safe|linebreaks }}</p>
+                  <a href="#" class="btn btn-primary">Далее...</a>        
+              </div>
+          </div>
+
+      </div>
+      <div class="card-footer text-muted">
+          {{ animal.created_at|date:"Y-m-d H:i"  }}
+      </div>
+  </div>
+  {% endfor %}
+  </div>
+{% endblock content %}
+
+
+{% block sidebar %}
+<div class="col-md-4">
+  <div class="list-group">
+      {% for item in classifications %}
+      <a href="{% url 'classification' item.pk %}" class="list-group-item list-group-item-action">{{ item.title }}</a>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
 <!doctype html>
 <html lang="ru">
   <head>
