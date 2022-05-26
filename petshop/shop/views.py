@@ -29,3 +29,11 @@ def get_classification(request, classification_id):
     #'classification': classification,
     }
     return render(request, 'shop/classification.html', context)
+
+
+def view_animal(request, animal_id):
+    animal_item = Animal.objects.get(pk=animal_id)
+    context = {
+        'animal_item': animal_item
+    }
+    return render(request, 'shop/view_animal.html', context)

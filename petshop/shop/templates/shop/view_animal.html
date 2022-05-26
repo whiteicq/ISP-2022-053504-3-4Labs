@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ animal_views.title }} 
+{% endblock %}
+
+{% block sidebar %}
+<div class="col-md-4">
+  <div class="list-group">
+      {% for item in classifications %}
+      <a href="{{ item.get_absolution_url }}" class="list-group-item list-group-item-action">{{ item.title }}</a>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+
+{% block content %} 
+<div class="col-md-8">
+  <div class="card mb-3">
+      <div class="card-header">
+          Классификация: <a href="{{ animal_item.classification.get_absolute_url }}">{{ animal_item.classification }} </a>
+      </div>
+      <div class="card-body">
+          <div class="media">
+              {% if animal_item.photo %}
+                  <img src="{{ animal_item.photo.url }}" arl="" width="350" class="mr-3">    
+                  {% endif %}
+
+              <div class="media-body">
+                  <h5 class="card-title">{{ animal_item.title }}</h5>
+                  <p class="card-text">{{ animal_item.description|safe|linebreaks }}</p>     
+              </div>
+          </div>
+
+      </div>
+      <div class="card-footer text-muted">
+          {{ animal_item.created_at|date:"Y-m-d H:i"  }}
+      </div>
+  </div>
+  </div>
+{% endblock content %}

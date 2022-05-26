@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('classification/<int:classification_id>/', views.get_classification, name='classification'),
     path('admin/', admin.site.urls),
+    path('animal/<int:animal_id>', views.view_animal, name='view_animal'),
 ]
 
 if settings.DEBUG:

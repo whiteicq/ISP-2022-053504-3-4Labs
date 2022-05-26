@@ -1,7 +1,7 @@
 from statistics import mode
 from tabnanny import verbose
 from django.db import models
-
+from django.urls import reverse
 
 class Animal(models.Model):
     title = models.CharField(max_length=30, verbose_name="Название")
@@ -12,6 +12,9 @@ class Animal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     is_sales = models.BooleanField(default=False, verbose_name='Продано?')
     classification = models.ForeignKey('Classification', on_delete=models.PROTECT, null=True, verbose_name='Класс')
+
+    def get_absolute_url(self):
+        return reverse('view_animal', kwargs={"animal_id": self.pk})
 
     def __str__(self):
         return self.title
@@ -25,6 +28,9 @@ class Animal(models.Model):
 class Classification(models.Model):
     title = models.CharField(max_length=40, db_index=True, verbose_name="Класс")
 
+    def get_absolute_url(self):
+        return reverse('classification', kwargs={"classification_id": self.pk})
+
     def __str__(self):
         return self.title
 
@@ -32,4 +38,5 @@ class Classification(models.Model):
         verbose_name = "Класс"
         verbose_name_plural = 'Классы'
         ordering = ['title'] 
+    
 
