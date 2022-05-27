@@ -1,9 +1,11 @@
+import imp
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 
 from shop.admin import ClassificationAdmin
 from .models import Animal, Classification
+from .forms import AnimalForm
 
 # Create your views here.
 
@@ -37,3 +39,15 @@ def view_animal(request, animal_id):
         'animal_item': animal_item
     }
     return render(request, 'shop/view_animal.html', context)
+
+
+def add_animal(request):
+    if request.method == 'POST':
+        form = AnimalForm(request.POST)
+        if form.is_valid():
+            animals = Animal.objects.create(**form.cleaned_data)
+            # return redirect('home')
+            return redirect(animals)
+    else:
+        form = AnimalForm() 
+    return render(request, 'shop/add_animal.html', {'form': form})

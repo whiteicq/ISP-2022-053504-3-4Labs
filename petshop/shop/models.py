@@ -25,7 +25,7 @@ class Animal(models.Model):
         ordering = ['-created_at']
 
 
-class Classification(models.Model):
+class Classification(models.Model): 
     title = models.CharField(max_length=40, db_index=True, verbose_name="Класс")
 
     def get_absolute_url(self):
