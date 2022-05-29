@@ -1,11 +1,11 @@
-import imp
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
-
 from shop.admin import ClassificationAdmin
 from .models import Animal, Classification
 from .forms import AnimalForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -51,3 +51,21 @@ def add_animal(request):
     else:
         form = AnimalForm() 
     return render(request, 'shop/add_animal.html', {'form': form})
+
+
+def register(request):
+    if request == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Регистрация прошла успешно!')
+            return redirect('login')
+        else:
+            messages.error(request, 'Что-то пошло не так. Попробуйте заново')
+    else:
+        form = UserCreationForm()
+    return render(request, 'shop/register.html', {'form': form})
+
+
+def login(request):
+    return render(request, 'shop/login.html')

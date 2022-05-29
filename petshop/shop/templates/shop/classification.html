@@ -28,7 +28,7 @@
 
               <div class="media-body">
                   <h5 class="card-title">{{ animal.title }}</h5>
-                  <p class="card-text">{{ animal.description|safe|linebreaks }}</p>
+                  <p class="card-text">{{ animal.description|safe|linebreaks|truncatewords:50 }}</p>
                   <a href="{{ animal.get_absolute_url }}" class="btn btn-primary">Далее...</a>        
               </div>
           </div>

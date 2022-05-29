@@ -1,6 +1,7 @@
 from django import forms
 from .models import Classification
-
+import re
+from django.core.exceptions import ValidationError
 
 class AnimalForm(forms.Form):
     title = forms.CharField(max_length=30, label="Название:", widget=forms.TextInput(attrs={"class": "form-control"}))
@@ -12,3 +13,9 @@ class AnimalForm(forms.Form):
     weight = forms.FloatField(min_value=0.1, label="Вес:", widget=forms.TextInput(attrs={"class": "form-control"}))
     photo = forms.ImageField(required=False, label="Фото:")
     classification = forms.ModelChoiceField(queryset=Classification.objects.all(), empty_label="Выберите класс", label="Класс", widget=forms.Select(attrs={"class": "form-control"}))
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if re.match(r'\d', title):
+            raise ValidationError('Название не может начинаться с цифр')
+        return title

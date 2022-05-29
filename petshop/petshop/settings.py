@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'petshop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'myproject',
+        'USER': 'vlad',
+        'PASSWORD': 'spider111',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
