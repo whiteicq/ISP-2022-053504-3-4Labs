@@ -24,12 +24,13 @@
       <div class="card-body">
           <div class="media">
               {% if animal_item.photo %}
-                  <img src="{{ animal_item.photo.url }}" arl="" width="350" class="mr-3">    
+                  <img src="{{ animal_item.photo.url }}" alt="" width="350" class="mr-3">    
                   {% endif %}
 
               <div class="media-body">
                   <h5 class="card-title">{{ animal_item.title }}</h5>
                   <p class="card-text">{{ animal_item.description|safe|linebreaks }}</p>     
+                  <p class="card-text">Звонить: {{ animal_item.seller_number }}</p>
               </div>
           </div>
 

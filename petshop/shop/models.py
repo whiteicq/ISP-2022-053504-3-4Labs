@@ -8,8 +8,9 @@ class Animal(models.Model):
     description = models.TextField(max_length=10000, blank=True, verbose_name='Описание')
     price = models.FloatField(verbose_name='Цена')
     weight = models.FloatField(verbose_name='Вес')
-    photo = models.ImageField(blank=True, verbose_name='Фото')
+    photo = models.ImageField(blank=True, upload_to='images', verbose_name='Фото')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
+    seller_number = models.TextField(max_length=13, verbose_name="Номер продавца")
     is_sales = models.BooleanField(default=False, verbose_name='Продано?')
     classification = models.ForeignKey('Classification', on_delete=models.PROTECT, null=True, verbose_name='Класс')
 

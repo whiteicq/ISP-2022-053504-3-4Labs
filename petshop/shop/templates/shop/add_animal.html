@@ -42,6 +42,14 @@
           </div>
 
           <div class="form-group">
+            <label for="{{ form.seller_number.id_for_label }}">Номер телефона:</label>
+            {{ form.seller_number }}
+            <div class="invalid-feedback">
+              {{ form.seller_number.errors }}
+            </div>    
+          </div>
+
+          <div class="form-group">
             <label for="{{ form.price.id_for_label }}">Цена:</label>
             {{ form.price }}
             <div class="invalid-feedback">
