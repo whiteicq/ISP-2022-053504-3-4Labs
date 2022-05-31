@@ -24,8 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('animal/<int:animal_id>', views.view_animal, name='view_animal'),
     path('animal/add-animal/', views.add_animal, name='add_animal'),
-    path('register/', views.register, name='register'),
-    path('login/', views.user_login, name='login'),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path('login/', views.LoginView.as_view(), name='login'),
 ]
 
 if settings.DEBUG:
