@@ -9,6 +9,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.views.generic import CreateView,View
+from typing import Any, Dict
+from .bot import send_registration_notification
 # Create your views here.
 
 
@@ -16,21 +18,20 @@ def index(request):
     animals = Animal.objects.order_by('-created_at')
     classifications = Classification.objects.all()
     context = {
-    'animals': animals,
-    'title': 'Зоомагазин',
-    'classifications': classifications,
+        'animals': animals,
+        'title': 'Зоомагазин',
+        'classifications': classifications,
     }
     return render(request, 'shop/index.html', context)
+
 
 def get_classification(request, classification_id):
     animals = Animal.objects.filter(classification = classification_id)
     classifications = Classification.objects.all()
-    #classification = Classification.objects.get(pk=classification_id)
     context = {
-    'animals': animals,
-    'title': 'Категории',
-    'classifications': classifications,
-    #'classification': classification,
+        'animals': animals,
+        'title': 'Категории',
+        'classifications': classifications,
     }
     return render(request, 'shop/classification.html', context)
 
@@ -69,10 +70,16 @@ def add_animal(request):
 #     return render(request, 'shop/register.html', {'form': form})
 
 class RegisterView(CreateView):
-    """I Have Doc-String"""
+    """
+    I Have Doc-String
+    """
     form_class = UserRegisterForm
     success_url = reverse_lazy('login')
     template_name = 'shop/register.html'
+
+    def render_to_response(self, context: Dict[str, Any], **response_kwargs: Any) -> HttpResponse:
+        send_registration_notification.delay()
+        return super().render_to_response(context, **response_kwargs)
 
 class LoginView(View):
     form_class = UserLoginForm

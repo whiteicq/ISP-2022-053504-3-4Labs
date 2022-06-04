@@ -25,6 +25,9 @@ SECRET_KEY = 'django-insecure-7n4hysjwt$em0ugr7k-^=^_t)-0x*+#&p*#mfg)#=&%9%%4tm!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+BOT_TOKEN = "5418245467:AAG9ksTQpgMImXmJQqi6ZW7uezghOOssLwQ"
+BOT_CHAT_ID = "675119252"
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -83,9 +86,9 @@ WSGI_APPLICATION = 'petshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'petshopdb',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'spider111',
         'HOST': 'db',
         'PORT': '5432',
     }
@@ -171,3 +174,6 @@ LOGGING = {
         },
     },
 }
+
+CELERY_BROKER_URL = "redis://redis:6379"
+CELERY_RESULT_BACKEND = "redis://redis:6379"

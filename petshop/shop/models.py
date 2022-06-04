@@ -3,6 +3,7 @@ from tabnanny import verbose
 from django.db import models
 from django.urls import reverse
 
+
 class Animal(models.Model):
     title = models.CharField(max_length=30, verbose_name="Название")
     description = models.TextField(max_length=10000, blank=True, verbose_name='Описание')
@@ -39,5 +40,3 @@ class Classification(models.Model):
         verbose_name = "Класс"
         verbose_name_plural = 'Классы'
         ordering = ['title'] 
-    
-

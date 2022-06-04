@@ -2,22 +2,36 @@ version: "3.9"
 
 services:
   db:
-    image: postgres:12-alpine
+    image: postgres
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=petshopdb
+      - POSTGRES_USER=petshop
+      - POSTGRES_PASSWORD=spider111
     container_name: db
     
   web:
+    tty: true
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/redis_data
+  celery:
+    build: .
+    volumes:
+      - .:/app
+    command: celery -A petshop worker -l INFO
+    depends_on:
+      - redis
 
+volumes:
+  redis_data:
