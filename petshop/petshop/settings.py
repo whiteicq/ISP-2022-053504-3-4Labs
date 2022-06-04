@@ -20,22 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7n4hysjwt$em0ugr7k-^=^_t)-0x*+#&p*#mfg)#=&%9%%4tm!'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-BOT_TOKEN = "5418245467:AAG9ksTQpgMImXmJQqi6ZW7uezghOOssLwQ"
-BOT_CHAT_ID = "675119252"
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+BOT_CHAT_ID = os.environ.get("BOT_CHAT_ID")
 
 ALLOWED_HOSTS = ['*']
-
-
-# Application definition
-
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -86,11 +79,11 @@ WSGI_APPLICATION = 'petshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'petshopdb',
-        'USER': 'postgres',
-        'PASSWORD': 'spider111',
-        'HOST': 'db',
-        'PORT': '5432',
+        'NAME': os.environ.get("POSTGRES_DB"),
+        'USER': os.environ.get("POSTGRES_USER"),
+        'PASSWORD': os.environ.get("POSTRGES_PASSWORD"),
+        'HOST': os.environ.get("POSTGRES_HOST"),
+        'PORT': os.environ.get("POSTGRES_PORT"),
     }
 }
 
@@ -150,6 +143,10 @@ LOGGING = {
     "disable_existing_loggers": False,
     "root": {"level": "ERROR", "handlers": ["file"]},
     "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler"
+        },
         "file": {
             "level": "ERROR",
             "class": "logging.FileHandler",
@@ -159,7 +156,7 @@ LOGGING = {
     },
     "loggers": {
         "django": {
-            "handlers": ["file"],
+            "handlers": ["file", "console"],
             "level": "ERROR",
             "propagate": True
         },

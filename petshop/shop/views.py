@@ -11,6 +11,7 @@ from django.contrib.auth import login, logout
 from django.views.generic import CreateView,View
 from typing import Any, Dict
 from .bot import send_registration_notification
+
 # Create your views here.
 
 
@@ -56,19 +57,6 @@ def add_animal(request):
     return render(request, 'shop/add_animal.html', {'form': form})
 
 
-# def register(request):
-#     if request == 'POST':
-#         form = UserRegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Регистрация прошла успешно!')
-#             return redirect('login')
-#         else:
-#             messages.error(request, 'Что-то пошло не так. Попробуйте заново')
-#     else:
-#         form = UserRegisterForm()
-#     return render(request, 'shop/register.html', {'form': form})
-
 class RegisterView(CreateView):
     """
     I Have Doc-String
@@ -106,14 +94,3 @@ class LogoutView(View):
         # logger.info(request)
         logout(request)
         return redirect('login')
-
-# def user_login(request):
-#     if request == 'POST':
-#         form = UserLoginForm(data=request.POST)
-#         if form.is_valid():
-#             user = form.get_user()
-#             login(request, user)
-#             return redirect('home')
-#         else:
-#             form = UserLoginForm()
-#     return render(request, 'shop/login.html', {'form': form})
