@@ -6,8 +6,6 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     env_file: .env
-    container_name: db
-    
   web:
     tty: true
     build: .
@@ -30,6 +28,7 @@ services:
     command: celery -A petshop worker -l INFO
     depends_on:
       - redis
+    env_file: .env
 
 volumes:
   redis_data:

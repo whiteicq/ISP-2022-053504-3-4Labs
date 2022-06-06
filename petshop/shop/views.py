@@ -27,7 +27,8 @@ def index(request):
 
 
 def get_classification(request, classification_id):
-    animals = Animal.objects.filter(classification = classification_id)
+    classification = get_object_or_404(Classification, pk=classification_id)
+    animals = Animal.objects.filter(classification=classification)
     classifications = Classification.objects.all()
     context = {
         'animals': animals,
@@ -38,7 +39,7 @@ def get_classification(request, classification_id):
 
 
 def view_animal(request, animal_id):
-    animal_item = Animal.objects.get(pk=animal_id)
+    animal_item = get_object_or_404(Animal, pk=animal_id)
     context = {
         'animal_item': animal_item
     }
